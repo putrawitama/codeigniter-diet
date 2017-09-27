@@ -1,0 +1,7 @@
+.form-control:focus {
+	border-color: #5cb85c;
+}
+
+.isi {
+	color: red;
+}
