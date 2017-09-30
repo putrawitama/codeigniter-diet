@@ -1,7 +1,21 @@
 .form-control:focus {
-	border-color: #5cb85c;
+	border-color: #28a745;
 }
 
 .isi {
 	color: red;
+}
+
+.search {
+	margin-bottom: 10px;
+	padding-right: 0px;
+}
+
+.custom-control-input:checked~.custom-control-indicator {
+    color: #fff;
+    background-color: #5cb85c;
+}
+
+.custom-control-input:focus~.custom-control-indicator {
+    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #5cb85c;
 }

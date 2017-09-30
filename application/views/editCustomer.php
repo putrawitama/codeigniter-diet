@@ -10,7 +10,7 @@
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">Gelar</label>
-						<input type="text" class="form-control" placeholder="Contoh: S.Kom., M.Kom." name="gelar" value="<?php echo $d->gelar ?>">
+						<input type="text" class="form-control" placeholder="Contoh: S.Kom., M.Kom." name="gelar" value="<?php echo $d->gelar ?>" data-role="tagsinput">
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">Tgl Lahir<small class="isi">*</small> </label>
@@ -27,6 +27,19 @@
 					<div class="form-group">
 						<label for="exampleInputEmail1">Email<small class="isi">*</small> </label>
 						<input type="email" class="form-control" placeholder="Email" name="email" value="<?php echo $d->email ?>" required="true">
+					</div>
+					<label for="exampleInputEmail1">Gender<small class="isi">*</small> </label>
+					<div class="form-group">
+						<label class="custom-control custom-radio">
+							<input name="gender" type="radio" class="custom-control-input" value="L" <?php echo ($d->gender == 'L' ? 'checked="checked"' : '') ?>" required="true">
+							<span class="custom-control-indicator"></span>
+							<span class="custom-control-description">Pria</span>
+						</label>
+						<label class="custom-control custom-radio">
+							<input name="gender" type="radio" class="custom-control-input" value="P" <?php echo ($d->gender == 'P' ? 'checked="checked"' : '') ?>" required="true">
+							<span class="custom-control-indicator"></span>
+							<span class="custom-control-description">Wanita</span>
+						</label>
 					</div>
 					<div class="form-group">
 						<small class="isi">* (Wajib diisi)</small>

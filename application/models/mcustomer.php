@@ -23,6 +23,15 @@ class Mcustomer extends CI_Model {
 	}
 
 
+	public function getLast()
+	{
+		$this->db->select('id_customer');
+		$this->db->from('customer');
+		$this->db->order_by('id_customer', 'desc');
+		$this->db->limit(1);
+		return $this->db->get();
+	}
+
 	//ambil satu data dari tabel customer berdasarkan id_customer
 	public function getCustomer($id)
 	{
@@ -33,11 +42,31 @@ class Mcustomer extends CI_Model {
 	}
 
 	//ambil seluruh data customer pada tabel customer
-	public function getAll()
+	public function getAll($count = false, $from, $to, $q = null)
+	{
+
+		$this->db->select('*');
+		$this->db->from('customer');
+		if ($q != null) {
+			$this->db->like('nama', $q);
+			$this->db->or_like('email', $q);
+			$this->db->or_like('id_customer', $q);
+		}
+		$this->db->limit($from, $to);
+		return $this->db->get();
+	}
+
+	public function getCount($q = null)
 	{
 		$this->db->select('*');
 		$this->db->from('customer');
-		return $this->db->get();
+		if ($q != null) {
+			$this->db->like('nama', $q);
+			$this->db->or_like('email', $q);
+			$this->db->or_like('id_customer', $q);
+		}
+		$query = $this->db->get();
+		return count($query->result_array()) ;
 	}
 
 	//update data customer
@@ -71,11 +100,16 @@ class Mcustomer extends CI_Model {
 		}
 	}
 
-	public function cek_customer($tgl)
+	public function getPagination($num, $offset, $q = null)
 	{
 		$this->db->select('*');
 		$this->db->from('customer');
-		$this->db->where('tgl_daftar', $tgl);
+		if ($q != null) {
+			$this->db->like('nama', $q);
+			$this->db->or_like('email', $q);
+			$this->db->or_like('id_customer', $q);
+		}
+		$this->db->limit($num, $offset);
 		return $this->db->get();
 	}
 }
