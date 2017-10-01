@@ -32,7 +32,7 @@ class Customer extends CI_Controller {
 		   /*membuat variable halaman untuk dipanggil di view nantinya*/
 		$data['offset'] = $dari;
 
-		$data['customer'] = $this->mcustomer->getAll(false, $pg_i['per_page'], $dari)->result();
+		$data['customer'] = $this->mcustomer->getAll($pg_i['per_page'], $dari)->result();
 
 		//menampilkan alert success
 		if($this->input->get('success') == 1)

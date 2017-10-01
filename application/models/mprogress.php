@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Mcustomer extends CI_Model {
+class Mprogress extends CI_Model {
 
 	public function __construct(){
 		
@@ -11,7 +11,7 @@ class Mcustomer extends CI_Model {
 	//simpan data customer baru
 	public function save($data)
 	{
-		if ($this->db->insert('customer', $data)) { //jika data berhasil di input ke database maka
+		if ($this->db->insert('progress', $data)) { //jika data berhasil di input ke database maka
 
 			return true; // mengembalikan nilai true
 		
@@ -22,49 +22,38 @@ class Mcustomer extends CI_Model {
 		}
 	}
 
-
-	public function getLast()
-	{
-		$this->db->select('id_customer');
-		$this->db->from('customer');
-		$this->db->order_by('id_customer', 'desc');
-		$this->db->limit(1);
-		return $this->db->get();
-	}
-
 	//ambil satu data dari tabel customer berdasarkan id_customer
-	public function getCustomer($id)
+	public function getProgress($id)
 	{
 		$this->db->select('*');
-		$this->db->from('customer');
-		$this->db->where('id_customer', $id);
+		$this->db->from('progress');
+		$this->db->where('id_progress', $id);
+
 		return $this->db->get();
 	}
 
 	//ambil seluruh data customer pada tabel customer
-	public function getAll($from, $to, $q = null)
+	public function getAll($id, $from, $to, $q = null)
 	{
 
 		$this->db->select('*');
-		$this->db->from('customer');
+		$this->db->from('progress');
 		if ($q != null) {
-			$this->db->like('nama', $q);
-			$this->db->or_like('email', $q);
-			$this->db->or_like('id_customer', $q);
+			$this->db->like('program', $q);
 		}
+		$this->db->where('id_customer', $id);
 		$this->db->limit($from, $to);
 		return $this->db->get();
 	}
 
-	public function getCount($q = null)
+	public function getCount($id, $q = null)
 	{
 		$this->db->select('*');
-		$this->db->from('customer');
+		$this->db->from('progress');
 		if ($q != null) {
-			$this->db->like('nama', $q);
-			$this->db->or_like('email', $q);
-			$this->db->or_like('id_customer', $q);
+			$this->db->like('program', $q);
 		}
+		$this->db->where('id_customer', $id);
 		$query = $this->db->get();
 		return count($query->result_array()) ;
 	}
@@ -72,8 +61,8 @@ class Mcustomer extends CI_Model {
 	//update data customer
 	public function update($id, $data)
 	{
-		$this->db->where('id_customer', $id);
-		if ($this->db->update('customer', $data)) { //jika data berhasil diupdate ke database maka
+		$this->db->where('id_progress', $id);
+		if ($this->db->update('progress', $data)) { //jika data berhasil diupdate ke database maka
 
 			return true; // mengembalikan nilai true
 		
@@ -84,21 +73,6 @@ class Mcustomer extends CI_Model {
 		}
 	}
 
-
-	//menghapus data customer
-	public function delete($id)
-	{
-		$this->db->where('id_customer', $id);
-		if ($this->db->delete('customer')) { //jika data berhasil diupdate ke database maka
-
-			return true; // mengembalikan nilai true
-		
-		} else { //jika gagal maka
-		
-			return false;  //mengembalikan nilai false
-		
-		}
-	}
 
 	public function getPagination($num, $offset, $q = null)
 	{
