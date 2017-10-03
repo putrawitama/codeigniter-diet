@@ -23,3 +23,11 @@ body {
 .custom-control-input:focus~.custom-control-indicator {
     box-shadow: 0 0 0 1px #fff, 0 0 0 3px #5cb85c;
 }
+
+.card-min {
+	width: 20rem !important;
+}
+
+.btn-group-block {
+	width: 50%;
+}

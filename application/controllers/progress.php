@@ -11,9 +11,46 @@ class Progress extends CI_Controller {
 		$this->load->model('mcustomer');
 	}
 
-	public function index()
+	public function all($id = null)
 	{
-		$this->load->view('welcome_message');
+		if ($id == null) {
+			show_404();
+		}
+
+		// $progress = $this->mprogress->getAll($id)->result();
+		// $timbang = $this->getAllTimbang($id, false, true)->row();
+		$progress = $this->mprogress->getAllWithTimbang($id)->result();
+		$customer = $this->mcustomer->getCustomer($id)->row();
+
+		// echo "<pre>";
+		// print_r($progress);
+		// if (!$progress) {
+		// 	show_404();
+		// }
+		if (!$progress) {
+			$customer = $this->mcustomer->getCustomer($id)->row();
+			if (!$customer) {
+				show_404();
+			}
+		}
+
+		$data = [
+			'progress' => $progress,
+			'customer' => $customer->id_customer
+		];
+
+		if($this->input->get('success') == 1)
+		{
+			$data['success'] = "Success";
+		}
+
+		//menampilkan alert error
+		if($this->input->get('error') == 1)
+		{
+			$data['error'] = "Tidak dapat menambah program";
+		}
+
+		$this->load->view('homeProgress', $data);
 	}
 
 	public function add($id = null)
@@ -30,6 +67,14 @@ class Progress extends CI_Controller {
 
 		if (!($customer->id_customer == $id)) {
 			show_404();
+		}
+
+		$progress = $this->mprogress->getAll($id)->result();
+
+		foreach ($progress as $d) {
+			if ($d->status == 1) {
+				redirect("/progress/all/".$id."?error=1");
+			}
 		}
 
 		$tgl = date("Y-m-d");
@@ -61,12 +106,12 @@ class Progress extends CI_Controller {
 		if ($input) {
 
 			// echo "sukses";
-			redirect("/progress?success=1");
+			redirect("/progress/all/".$id."?success=1");
 
 		} else {
 
 			// echo "gagal";
-			redirect("/progress?error=1");
+			redirect("/progress/all/".$id."?error=1");
 
 		}
 	}
@@ -93,10 +138,12 @@ class Progress extends CI_Controller {
 
 		$edit = $this->mprogress->update($id, $data);
 
+		$customer = $this->mprogress->getProgress($id)->row();
+
 		if ($edit) {
-			redirect('progress?success=1');
+			redirect('progress/all/'.$customer->id_customer.'?success=1');
 		} else {
-			redirect('progress?error=1');
+			redirect('progress/all/'.$customer->id_customer.'?error=1');
 		}
 	}
 }

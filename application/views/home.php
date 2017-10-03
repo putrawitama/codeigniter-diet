@@ -39,6 +39,7 @@
 						      <td><?php echo $d->email ?></td>
 						      <td class="text-center">
 						      	<div class="btn-group" role="group">
+						      		<a class="btn btn-outline-success btn-sm" href="<?php echo site_url('progress/all/'.$d->id_customer); ?>">Program</a>
 						      		<a class="btn btn-outline-success btn-sm" href="<?php echo site_url('customer/edit/'.$d->id_customer); ?>">Edit</a>
 						      		<a class="btn btn-danger btn-sm" href="<?php echo site_url('customer/delete/'.$d->id_customer); ?>">Delete</a>
 								</div>

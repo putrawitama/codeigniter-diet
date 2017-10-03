@@ -33,7 +33,7 @@ class Mprogress extends CI_Model {
 	}
 
 	//ambil seluruh data customer pada tabel customer
-	public function getAll($id, $from, $to, $q = null)
+	public function getAll($id, $q = null)
 	{
 
 		$this->db->select('*');
@@ -42,7 +42,33 @@ class Mprogress extends CI_Model {
 			$this->db->like('program', $q);
 		}
 		$this->db->where('id_customer', $id);
-		$this->db->limit($from, $to);
+		// $this->db->limit($from, $to);
+		return $this->db->get();
+	}
+
+	public function getAllWithTimbang($id)
+	{
+		// $this->db->query("select p.*, t.tanggal, t.berat
+		// 	from progress p
+		// 	inner join (select id_progress, tanggal, berat
+		// 	from timbang
+		// 	where tanggal = (
+		// 	select max(tanggal)
+		// 	from timbang
+		// 	where id_progress = id_progress)) t
+		// 	on p.id_progress = t.id_progress
+		// 	order BY p.id_progress ASC");
+
+		$this->db->select('progress.*, t.tanggal, t.berat');
+		$this->db->from('progress');
+		$this->db->join('(select id_progress, tanggal, berat
+			from timbang
+			where tanggal = (
+			select max(tanggal)
+			from timbang
+			where id_progress = id_progress)) t', 'progress.id_progress=t.id_progress', 'left');
+		$this->db->where('progress.id_customer', $id);
+		$this->db->order_by('progress.id_progress', 'ASC');
 		return $this->db->get();
 	}
 
@@ -54,8 +80,7 @@ class Mprogress extends CI_Model {
 			$this->db->like('program', $q);
 		}
 		$this->db->where('id_customer', $id);
-		$query = $this->db->get();
-		return count($query->result_array()) ;
+		return $this->db->count_all_results();
 	}
 
 	//update data customer
@@ -74,17 +99,63 @@ class Mprogress extends CI_Model {
 	}
 
 
-	public function getPagination($num, $offset, $q = null)
+	// public function getPagination($num, $offset, $q = null)
+	// {
+	// 	$this->db->select('*');
+	// 	$this->db->from('customer');
+	// 	if ($q != null) {
+	// 		$this->db->like('nama', $q);
+	// 		$this->db->or_like('email', $q);
+	// 		$this->db->or_like('id_customer', $q);
+	// 	}
+	// 	$this->db->limit($num, $offset);
+	// 	return $this->db->get();
+	// }
+
+
+	public function getTimbang($id, $first = false, $last = false)
 	{
 		$this->db->select('*');
-		$this->db->from('customer');
-		if ($q != null) {
-			$this->db->like('nama', $q);
-			$this->db->or_like('email', $q);
-			$this->db->or_like('id_customer', $q);
+		$this->db->from('timbang');
+		$this->db->where('id_progress', $id);
+		if ($first == true) {
+			$this->db->order_by('tanggal', 'ASC');
+			$this->db->limit(1);
+		} 
+
+		if ($last == true) {
+			$this->db->order_by('tanggal', 'DESC');
+			$this->db->limit(1);
 		}
-		$this->db->limit($num, $offset);
+		
 		return $this->db->get();
+	}
+
+	public function getAllTimbang($id, $count = false)
+	{
+		$this->db->select('*');
+		$this->db->from('timbang');
+		$this->db->where('id_progress', $id);
+		// $query = $this->db->get();
+		if ($count == true) {
+			// return count($query->result());
+			return $this->db->count_all_results();
+		} else {
+			return $this->db->get();
+		}
+	}
+
+	public function saveTimbang($data)
+	{
+		if ($this->db->insert('timbang', $data)) { //jika data berhasil di input ke database maka
+
+			return true; // mengembalikan nilai true
+		
+		} else { //jika gagal maka
+		
+			return false;  //mengembalikan nilai false
+		
+		}
 	}
 }
 
