@@ -1,11 +1,18 @@
-<?php $this->load->view('./komponen/header');?>
-<nav class="sidebar bg-success">
-	<a class="navbar-brand" href="#" style="color: white;">Control Diet</a>
-	<hr>	
-	<ul class="nav nav-pills nav-stacked">
-							<li class="nav-link"><a href="#">Home</a></li>
-							<li class="nav-link"><a href="#">About</a></li>
-							<li class="nav-link"><a href="#">Login</a></li>
-						</ul>
-</nav>
-<?php $this->load->view('./komponen/footer');?>
+
+<div class="sidebar-background hidden"></div>
+<div class="sidebar hidden">
+	
+	<div class="logo">	
+		<a class="navbar-brand sidenav" href="<?php echo site_url(); ?>">Control Diet</a>
+	</div>
+	<div class="nav">
+		<ul class="sidemenu">
+	        <li class="menu"><a href="<?php echo site_url('customer'); ?>"><i class="icon fa fa-group"></i> Daftar Customer</a></li>
+	        <li class="menu"><a href="#"><i class="icon fa fa fa-book"></i> Laporan</a></li>
+	      </ul>
+	</div>	
+
+	<div class="copy">
+		<small>	Copyright &copy; Kelompok 1 dan 5</small>
+	</div>
+</div>
