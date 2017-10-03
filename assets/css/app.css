@@ -34,14 +34,93 @@ body {
 
 .sidebar {
 	text-align: center;
-	list-style: none;
+	list-style-type: none;
 	position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     width: 260px;
+    background-color: rgba(40, 167, 69, 0.8);
 }
 
 hr {
 	margin-top: 11px; 
+} 
+
+.sidenav {
+	color: white;
+}
+
+.logo {
+	padding: 10px 30px;
+    border-bottom: 1px solid hsla(0,0%,100%,.5);
+}
+
+.copy {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 260px;
+	padding: 10px 30px;
+	color: white;
+    border-top: 1px solid hsla(0,0%,100%,.5);
+}
+
+.sidebar-background {
+    position: fixed;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 260px;
+    background-image: url("../images/sideback.jpg");
+    background-size: cover;
+    background-position: 47%;
+}
+
+.sidemenu {
+	width: 100%;
+    padding: 0px;
+    margin: 30px;
+    font-weight: 500;
+    text-align: left;
+}
+
+@media (max-width: 1200px) {
+	.hidden {
+		visibility: hidden;
+	}
+}
+.sidemenu a {
+	color: white;
+	text-decoration: none;
+}
+.menu {
+  padding: 10px 10px 10px 20px;
+  overflow: auto;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  color: white;
+}
+
+.menu:hover {
+  background-color : rgba(255, 255, 255, 0.50);
+  cursor: pointer;
+}
+
+.icon {
+	margin-right: 10px;
+}
+
+@media (min-width: 1200px) {
+	.main {
+		margin-left: 22%;
+	}
+}
+
+.table-responsive {
+  display: block;
+  width: 100%;
+  min-height: 0%;
+  overflow-x: auto;
 }

@@ -1,11 +1,12 @@
 <?php $this->load->view('./komponen/header');?>
-		<div class="col-12" style="margin-top: 10px;">
+<?php $this->load->view('./komponen/sidemenu');?>
+		<div class="col-md-9 main" style="margin-top: 10px;">
 			<?php if(isset($error)){?><div class="alert alert-danger"><?php echo $error; ?></div><?php } ?>
 			<?php if(isset($success)){?><div class="alert alert-success"><?php echo $success; ?></div><?php } ?>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-12" style="margin-top:20px;">
+		<div class="col-md-9 main" style="margin-top:20px;">
 			<a class="float-right btn btn-success btn-sm" href="<?php echo site_url('progress/add/'.$customer) ?>">Tambah Program</a>
 			<h4>Daftar Program Anda</h4>
 			<hr>
@@ -18,8 +19,10 @@
 		foreach ($progress as $d) { 
 		if($idx%3 == 0){?>
 			<div class="row" style="margin-bottom: 15px;">
-		<?php } ?>
-				<div class="col-md-4">
+				<div class="col-md-3 main">
+		<?php } else { ?>
+				<div class="col-md-3">
+		<?php 	} ?>
 					<div class="card" style="border-color: #add4ad;">
 					  <div class="card-body">
 					  	<div class="float-right">

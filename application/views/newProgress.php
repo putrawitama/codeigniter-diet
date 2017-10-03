@@ -1,5 +1,6 @@
 <?php $this->load->view('./komponen/header');?>
-		<div class="col-12">
+<?php $this->load->view('./komponen/sidemenu');?>
+		<div class="col-md-9 main">
 			<div class="card" style="margin-top:20px; border-color: #add4ad;">
 			  <h4 class="card-header bg-success" style="color: white;">Program Baru</h4>
 			  <div class="card-body">
