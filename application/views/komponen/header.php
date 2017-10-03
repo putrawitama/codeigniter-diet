@@ -12,14 +12,9 @@
 	</head>
 	<body>
 		<header>
-			<nav class="navbar" style="background-color: #2c3e50;">
-				<div class="container">
-					<a class="navbar-brand" href="#" style="color: white;">
-					    <img src="<?php echo site_url('../assets/images/logo3.png') ?>" width="30" height="30" class="d-inline-block align-top" alt="">
-					    Control Diet
-					  </a>
-				</div>
+			<nav class="navbar" style="background-color: #2c3e50; height: 60px">
+				
 			</nav>
 		</header>
-		<div class="container">
+		<div class="container-fluid">
 			<div class="row">

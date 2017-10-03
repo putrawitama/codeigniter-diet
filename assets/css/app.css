@@ -31,3 +31,17 @@ body {
 .btn-group-block {
 	width: 50%;
 }
+
+.sidebar {
+	text-align: center;
+	list-style: none;
+	position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 260px;
+}
+
+hr {
+	margin-top: 11px; 
+}

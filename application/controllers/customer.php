@@ -78,7 +78,7 @@ class Customer extends CI_Controller {
 		   /*membuat variable halaman untuk dipanggil di view nantinya*/
 		$data['offset'] = $dari;
 
-		$data['customer'] = $this->mcustomer->getAll(false, $pg_i['per_page'], $dari, $q)->result();
+		$data['customer'] = $this->mcustomer->getAll($pg_i['per_page'], $dari, $q)->result();
 		   /*memanggil view pagination*/
 
 		//menampilkan alert success
@@ -92,7 +92,7 @@ class Customer extends CI_Controller {
 		{
 			$data['error'] = "Error";
 		}
-
+		
 		$this->load->view('home', $data);
 	}
 
