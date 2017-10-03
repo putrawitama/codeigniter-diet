@@ -196,6 +196,77 @@ class Customer extends CI_Controller {
 			show_404();
 		}
 	}
+
+	public function cetak_customer(){
+		
+		$customers = $this->mcustomer->getAllCustomer()->result();
+
+		$judul = "DAFTAR CUSTOMER PER ".strtoupper(date('d F Y'));
+
+		require_once('application/libraries/FPDF/fpdf.php');
+
+		$pdf = new FPDF();
+		$pdf->SetTitle('DaftarCustomer_'.date('d-m-Y'));
+		$pdf->SetAutoPageBreak(true, 10);
+		$pdf->SetMargins(15, 15);
+		$pdf->AddPage('L');
+		$pdf->SetFont('Times','B',16);
+		$pdf->Cell(0,7, $judul, 0, 1, 'C');
+		$pdf->Ln();
+
+		$pdf->SetFont('Times','B',12);
+		$pdf->Cell(12, 14, 'No.', 1, 0, 'C');
+		$pdf->Cell(20, 14, 'ID', 1, 0, 'C');
+		$x = $pdf->GetX();
+		$y = $pdf->GetY();
+		$w = 35;
+		$pdf->MultiCell(35, 14, 'Nama', 1, 'C');
+		$pdf->SetXY($x+$w, $y);
+		$pdf->Cell(40, 14, 'Gelar', 1, 0, 'C');
+		$x = $pdf->GetX();
+		$y = $pdf->GetY();
+		$w = 30;
+		$pdf->MultiCell(30, 14, 'No. Telepon', 1, 'C');
+		$pdf->SetXY($x+$w, $y);
+		$x = $pdf->GetX();
+		$y = $pdf->GetY();
+		$w = 30;
+		$pdf->MultiCell(30, 14, 'No. HP', 1, 'C');
+		$pdf->SetXY($x+$w, $y);
+		$x = $pdf->GetX();
+		$y = $pdf->GetY();
+		$w = 50;
+		$pdf->MultiCell(50, 14, 'Email', 1, 'C');
+		$pdf->SetXY($x+$w, $y);
+		$x = $pdf->GetX();
+		$y = $pdf->GetY();
+		$w = 25;
+		$pdf->MultiCell(25, 7, 'Tanggal Lahir', 1, 'C');
+		$pdf->SetXY($x+$w, $y);
+		$x = $pdf->GetX();
+		$y = $pdf->GetY();
+		$w = 20;
+		$pdf->MultiCell(25, 7, 'Tanggal Daftar', 1, 'C');
+
+		$nomor = 1;
+		$pdf->SetFont('Times','',11);
+		foreach($customers as $customer){
+			$pdf->Cell(12, 7, $nomor, 1, 0, 'C');
+			$pdf->Cell(20, 7, $customer->id_customer, 1, 0, 'C');
+			$pdf->Cell(35, 7, $customer->nama, 1, 0, 'C');
+			$pdf->Cell(40, 7, $customer->gelar, 1, 0, 'C');
+			$pdf->Cell(30, 7, $customer->telepon, 1, 0, 'C');
+			$pdf->Cell(30, 7, $customer->hp, 1, 0, 'C');
+			$pdf->Cell(50, 7, $customer->email, 1, 0, 'C');
+			$pdf->Cell(25, 7, date('d-m-Y', strtotime($customer->tgl_lahir)), 1, 'C');
+			$pdf->Cell(25, 7, date('d-m-Y', strtotime($customer->tgl_daftar)), 1, 'C');
+			$pdf->Ln();
+			$nomor++;
+		}
+		$pdf->Output();
+
+	}
+
 }
 
 /* End of file welcome.php */

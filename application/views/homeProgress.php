@@ -40,7 +40,8 @@
 					  	<?php if ($d->status == 1) { ?>
 					  		<div class="btn-group btn-block" style="">
 						  		<a href="<?php echo site_url('timbang/add/'.$d->id_progress); ?>" class="btn btn-outline-success btn-group-block">Timbang</a>
-						  		<a href="#" class="btn btn-success btn-group-block">Hasil</a>
+						  		<a href="<?=site_url('progress/cetak_progress/'.$d->id_progress)?>" class="btn btn-success btn-group-block" target="_blank">Hasil</a>
+						  		<a href="<?=site_url('progress/get_chart/'.$d->id_progress)?>" class="btn btn-outline-success btn-group-block" target="_blank">Statistik</a>
 						  	</div>
 						  	<a href="<?php echo site_url('progress/finish/'.$d->id_progress); ?>" class="btn btn-danger btn-block">Selesai</a>
 					  	<?php } else { ?>
@@ -59,5 +60,5 @@
 	<div class="alert alert-info">Tidak Ada Program</div>
 <?php } ?>
 
-</div>
+	</div>
 <?php $this->load->view('./komponen/footer'); ?>

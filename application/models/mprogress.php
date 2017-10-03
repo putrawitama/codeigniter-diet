@@ -32,6 +32,15 @@ class Mprogress extends CI_Model {
 		return $this->db->get();
 	}
 
+	public function getProgressByCustomer($id)
+	{
+		$this->db->select('*');
+		$this->db->from('progress');
+		$this->db->where('id_customer', $id);
+
+		return $this->db->get();
+	}
+
 	//ambil seluruh data customer pada tabel customer
 	public function getAll($id, $q = null)
 	{

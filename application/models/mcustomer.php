@@ -41,6 +41,13 @@ class Mcustomer extends CI_Model {
 		return $this->db->get();
 	}
 
+	public function getAllCustomer()
+	{
+		$this->db->select('*');
+		$this->db->from('customer');
+		return $this->db->get();
+	}
+
 	//ambil seluruh data customer pada tabel customer
 	public function getAll($from, $to, $q = null)
 	{

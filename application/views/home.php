@@ -7,6 +7,7 @@
 			  	<?php if(isset($success)){?><div class="alert alert-success"><?php echo $success; ?></div><?php } ?>
 			  	<div class="float-left">
 			  		<a class="btn btn-success" href="<?php echo site_url('customer/add/'); ?>">Tambah Customer</a>
+			  		<a class="btn btn-success" href="<?php echo site_url('customer/cetak_customer'); ?>" target="_blank">Cetak Daftar Customer</a>
 			  	</div>
 			  	<form method="post" action="<?php echo site_url('customer/cari/'); ?>">
 			  		<div class="input-group col-4 float-right search">
