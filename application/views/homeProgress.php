@@ -37,7 +37,7 @@
 					  	<div class=" w-100 justify-content-between">
 					  		<p class="card-text">Tinggi: <?php echo $d->tinggi ?></p>
 					  		<p class="card-text">Usia: <?php echo $d->usia ?></p>
-					  		<p class="card-text">Target : <?php echo $d->target ?>kg</p>
+					  		<p class="card-text">Target : <?php echo ($d->target == 0) ? 'Sudah Ideal' : $d->target.'kg' ; ?></p>
 						  	<p>Masalah : <?php echo $d->masalah ?></p>
 					  	</div>
 					  	<?php if ($d->status == 1) { ?>
@@ -48,7 +48,10 @@
 						  	</div>
 						  	<a href="<?php echo site_url('progress/finish/'.$d->id_progress); ?>" class="btn btn-danger btn-block">Selesai</a>
 					  	<?php } else { ?>
-					  		<a href="#" class="btn btn-success btn-block">Hasil</a>
+					  		<div class="btn-group btn-block" style="">
+						  		<a href="<?=site_url('progress/cetak_progress/'.$d->id_progress)?>" class="btn btn-success btn-group-block" target="_blank">Hasil</a>
+						  		<a href="<?=site_url('progress/get_chart/'.$d->id_progress)?>" class="btn btn-outline-success btn-group-block" target="_blank">Statistik</a>
+						  	</div>
 					  	<?php } ?>
 					  </div>
 					</div>		
@@ -60,7 +63,7 @@
 		<?php }} ?>
 
 <?php } else { ?>
-	<div class="alert alert-info">Tidak Ada Program</div>
+	<div class="alert alert-info col-md-9 main">Tidak Ada Program</div>
 <?php } ?>
 
 	</div>

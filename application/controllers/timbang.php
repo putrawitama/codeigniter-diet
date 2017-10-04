@@ -68,7 +68,7 @@ class Timbang extends CI_Controller {
 			'body_water' => $this->input->post("air"),
 			'muscle_mass' => $this->input->post("otot"),
 			'rating_fisik' => $this->input->post("fisik"),
-			'bmr' => $this->input->post("bmr"),
+			'bmr' => $this->input->post("kalori"),
 			'usia_sel' => $this->input->post("sel"),
 			'visceral_fat' => $this->input->post("perut")
 		];
@@ -77,8 +77,26 @@ class Timbang extends CI_Controller {
 
 		$input = $this->mprogress->saveTimbang($data);
 		$progress = $this->mprogress->getProgress($id)->row();
+		$customer = $this->mcustomer->getCustomer($progress->id_customer)->row();
 
-		if ($input) {
+		$tb = $progress->tinggi;
+		$bbn = $tb-100;
+		if ($customer->gender == 'L') {
+			$bbi = $bbn-(0.1*$bbn);
+			$target = abs($data['berat']-$bbn);
+		} else {
+			$bbi = $bbn-(0.15*$bbn);
+			$target = abs($data['berat']-$bbn);
+		}
+
+		$bideal = [
+			'target' => $target
+		];
+
+		$update = $this->mprogress->update($id, $bideal);
+		
+
+		if ($input && $update) {
 			// echo "sukses";
 			redirect("/progress/all/".$progress->id_customer."?success=1");
 		} else {

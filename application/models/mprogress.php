@@ -57,17 +57,6 @@ class Mprogress extends CI_Model {
 
 	public function getAllWithTimbang($id)
 	{
-		// $this->db->query("select p.*, t.tanggal, t.berat
-		// 	from progress p
-		// 	inner join (select id_progress, tanggal, berat
-		// 	from timbang
-		// 	where tanggal = (
-		// 	select max(tanggal)
-		// 	from timbang
-		// 	where id_progress = id_progress)) t
-		// 	on p.id_progress = t.id_progress
-		// 	order BY p.id_progress ASC");
-
 		$this->db->select('progress.*, t.tanggal, t.berat');
 		$this->db->from('progress');
 		$this->db->join('(select id_progress, tanggal, berat
